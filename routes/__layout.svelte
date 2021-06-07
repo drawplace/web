@@ -1,3 +1,7 @@
+<svelte:head>
+	<link rel="preconnect" href={import.meta.env.VITE_API_ORIGIN} />
+</svelte:head>
+
 <slot />
 
 <style lang="scss" global>
