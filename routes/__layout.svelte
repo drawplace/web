@@ -1,5 +1,9 @@
+<script lang="ts">
+	import API_ORIGIN from '../lib/api/origin'
+</script>
+
 <svelte:head>
-	<link rel="preconnect" href={import.meta.env.VITE_API_ORIGIN} />
+	<link rel="preconnect" href={API_ORIGIN} />
 </svelte:head>
 
 <slot />
