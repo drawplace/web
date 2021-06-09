@@ -1,13 +1,14 @@
 import { serialize } from 'cookie'
 import { dev } from '$app/env'
 
-import FOREVER from './forever'
+const FOREVER = 60 * 60 * 24 * 365
 
-const getCookie = (key: string, value: string, maxAge: number = FOREVER) =>
+const getCookie = (key: string, value: string, http = false) =>
 	serialize(key, value, {
-		maxAge,
+		maxAge: FOREVER,
 		sameSite: dev ? 'strict' : 'none',
-		secure: !dev
+		secure: !dev,
+		httpOnly: http
 	})
 
 export default getCookie

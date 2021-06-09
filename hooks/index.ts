@@ -19,8 +19,8 @@ export const handle: Handle<Locals> = async ({ request, resolve }) => {
 	const { headers } = response
 
 	;(headers['set-cookie'] as unknown as string[]) = [
-		locals[ID] && getCookie(ID, locals[ID] as string),
-		locals[NAME] && getCookie(NAME, locals[NAME] as string)
+		locals[ID] && getCookie(ID, locals[ID] as string, true),
+		locals[NAME] && getCookie(NAME, locals[NAME] as string, true)
 	].filter(Boolean) as string[]
 
 	return response
