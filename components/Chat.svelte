@@ -1,26 +1,27 @@
 <script lang="ts">
-	import { getContext } from 'svelte'
-
-	import type ChatExpanded from '../lib/chat/expanded'
-	import { CHAT_EXPANDED } from '../lib/chat/expanded'
+	import session from '../lib/session/store'
+	import CHAT_EXPANDED from '../lib/chat/expanded/key'
 	import FOREVER from '../lib/cookie/forever'
 	import toggleCookie from '../lib/cookie/toggle'
 	import Expand from '../images/Expand.svelte'
 	import Collapse from '../images/Collapse.svelte'
-
-	const expanded = getContext<ChatExpanded>(CHAT_EXPANDED)
+	import Messages from './Messages.svelte'
 
 	const toggle = () => {
-		$expanded = !$expanded
-		toggleCookie(CHAT_EXPANDED, $expanded, FOREVER)
+		$session = { ...$session, chatExpanded: !$session.chatExpanded }
+		toggleCookie(CHAT_EXPANDED, $session.chatExpanded, FOREVER)
 	}
 </script>
 
 <article>
 	<header on:click={toggle}>
 		<h1>Chat</h1>
-		<svelte:component this={$expanded ? Collapse : Expand} class="toggle" />
+		<svelte:component
+			this={$session.chatExpanded ? Collapse : Expand}
+			class="toggle"
+		/>
 	</header>
+	<Messages />
 </article>
 
 <style lang="scss">

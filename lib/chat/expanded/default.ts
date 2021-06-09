@@ -1,0 +1,3 @@
+const DEFAULT_CHAT_EXPANDED = true
+
+export default DEFAULT_CHAT_EXPANDED
