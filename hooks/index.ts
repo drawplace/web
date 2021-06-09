@@ -1,5 +1,5 @@
 import type { Handle, GetSession } from '@sveltejs/kit'
-import { serialize, parse } from 'cookie'
+import { parse } from 'cookie'
 
 import type Locals from '../lib/locals'
 import type Session from '../lib/session'
@@ -7,7 +7,7 @@ import ID from '../lib/id/key'
 import NAME from '../lib/name/key'
 import CHAT_EXPANDED from '../lib/chat/expanded/key'
 import DEFAULT_CHAT_EXPANDED from '../lib/chat/expanded/default'
-import FOREVER from '../lib/cookie/forever'
+import getCookie from '../lib/cookie/get'
 import getToggledCookie from '../lib/cookie/toggle/get'
 import newId from '../lib/id/new'
 import newName from '../lib/name/new'
@@ -19,8 +19,8 @@ export const handle: Handle<Locals> = async ({ request, resolve }) => {
 	const { headers } = response
 
 	;(headers['set-cookie'] as unknown as string[]) = [
-		locals[ID] && serialize(ID, locals[ID] as string, { maxAge: FOREVER }),
-		locals[NAME] && serialize(NAME, locals[NAME] as string, { maxAge: FOREVER })
+		locals[ID] && getCookie(ID, locals[ID] as string),
+		locals[NAME] && getCookie(NAME, locals[NAME] as string)
 	].filter(Boolean) as string[]
 
 	return response

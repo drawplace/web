@@ -1,7 +1,6 @@
 <script lang="ts">
 	import session from '../lib/session/store'
 	import CHAT_EXPANDED from '../lib/chat/expanded/key'
-	import FOREVER from '../lib/cookie/forever'
 	import toggleCookie from '../lib/cookie/toggle'
 	import Expand from '../images/Expand.svelte'
 	import Collapse from '../images/Collapse.svelte'
@@ -9,7 +8,7 @@
 
 	const toggle = () => {
 		$session = { ...$session, chatExpanded: !$session.chatExpanded }
-		toggleCookie(CHAT_EXPANDED, $session.chatExpanded, FOREVER)
+		toggleCookie(CHAT_EXPANDED, $session.chatExpanded)
 	}
 </script>
 

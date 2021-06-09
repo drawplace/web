@@ -1,7 +1,7 @@
-import { serialize } from 'cookie'
+import getCookie from './get'
 
-const setCookie = (key: string, value: string, maxAge: number) => {
-	document.cookie = serialize(key, value, { maxAge })
+const setCookie = (key: string, value: string, maxAge?: number) => {
+	document.cookie = getCookie(key, value, maxAge)
 }
 
 export default setCookie
