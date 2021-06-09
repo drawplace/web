@@ -1,5 +1,5 @@
 <script lang="ts">
-	import API_ORIGIN from '../lib/api/origin'
+	import API_ORIGIN from '../lib/origin'
 </script>
 
 <svelte:head>

@@ -1,8 +1,8 @@
 import { writable } from 'svelte/store'
 import { browser } from '$app/env'
 
-import type Message from '../message'
-import API_SOCKET_ORIGIN from './origin/socket'
+import type Message from '.'
+import API_SOCKET_ORIGIN from '../origin/socket'
 
 const messages = writable<Message[] | null>(null, set => {
 	if (!browser) return

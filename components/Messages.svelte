@@ -1,5 +1,5 @@
 <script lang="ts">
-	import messages from '../lib/api/messages'
+	import messages from '../lib/message/store'
 </script>
 
 <div>
