@@ -2,14 +2,14 @@ import { writable } from 'svelte/store'
 import { browser } from '$app/env'
 
 import type Message from '.'
-import API_SOCKET_ORIGIN from '../origin/socket'
+import messagesUrl from './url'
 
 const messages = writable<Message[] | null>(null, set => {
 	if (!browser) return
 
 	let messages: Message[] = []
 
-	const socket = new WebSocket(`${API_SOCKET_ORIGIN}/messages`)
+	const socket = new WebSocket(messagesUrl())
 
 	socket.addEventListener('open', () => {
 		set(messages)

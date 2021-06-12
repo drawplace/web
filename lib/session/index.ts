@@ -1,5 +1,6 @@
+import type Data from '../data'
+
 export default interface Session {
-	id: string
-	name: string
+	data: Data
 	chatExpanded: boolean
 }

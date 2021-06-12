@@ -1,4 +1,5 @@
+import type Data from '../data'
+
 export default interface Locals {
-	id?: string
-	name?: string
+	data?: Data
 }

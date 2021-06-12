@@ -3,14 +3,12 @@ import { parse } from 'cookie'
 
 import type Locals from '../lib/locals'
 import type Session from '../lib/session'
-import ID from '../lib/id/key'
-import NAME from '../lib/name/key'
+import DATA from '../lib/data/key'
 import CHAT_EXPANDED from '../lib/chat/expanded/key'
 import DEFAULT_CHAT_EXPANDED from '../lib/chat/expanded/default'
 import getCookie from '../lib/cookie/get'
 import getToggledCookie from '../lib/cookie/toggle/get'
-import newId from '../lib/id/new'
-import newName from '../lib/name/new'
+import newData from '../lib/data/new'
 
 export const handle: Handle<Locals> = async ({ request, resolve }) => {
 	const response = await resolve(request)
@@ -18,10 +16,8 @@ export const handle: Handle<Locals> = async ({ request, resolve }) => {
 	const { locals } = request
 	const { headers } = response
 
-	;(headers['set-cookie'] as unknown as string[]) = [
-		locals[ID] && getCookie(ID, locals[ID] as string, true),
-		locals[NAME] && getCookie(NAME, locals[NAME] as string, true)
-	].filter(Boolean) as string[]
+	if (locals[DATA])
+		headers['set-cookie'] = getCookie(DATA, JSON.stringify(locals[DATA]))
 
 	return response
 }
@@ -31,10 +27,10 @@ export const getSession: GetSession<Locals, Session> = ({
 	headers
 }) => {
 	const cookies = parse(headers.cookie ?? '')
+	const data = cookies[DATA]
 
 	return {
-		id: cookies[ID] ?? (locals[ID] = newId()),
-		name: cookies[NAME] ?? (locals[NAME] = newName()),
+		data: data ? JSON.parse(data) : (locals[DATA] = newData()),
 		chatExpanded: getToggledCookie(
 			cookies[CHAT_EXPANDED],
 			DEFAULT_CHAT_EXPANDED
