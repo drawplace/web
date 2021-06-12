@@ -14,6 +14,7 @@
 
 	.root {
 		display: flex;
+		align-items: flex-start;
 		position: absolute;
 		top: $margin;
 		left: $margin;
